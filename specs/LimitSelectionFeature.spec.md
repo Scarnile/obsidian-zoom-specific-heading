@@ -23,17 +23,20 @@ text
 
 ```md
 text #hidden
- #hidden
+#hidden
+
 # 1 #hidden
- #hidden
+
+#hidden
 text #hidden
- #hidden
+#hidden
 |## 1.1|
 
 text
 
 # 2 #hidden
- #hidden
+
+#hidden
 text #hidden
 ```
 
@@ -64,17 +67,21 @@ text
 
 ```md
 text #hidden
- #hidden
+#hidden
+
 # 1 #hidden
- #hidden
+
+#hidden
 text #hidden
- #hidden
+#hidden
 |## 1.1
 
 text
 |
+
 # 2 #hidden
- #hidden
+
+#hidden
 text #hidden
 ```
 
@@ -105,17 +112,21 @@ text
 
 ```md
 text #hidden
- #hidden
+#hidden
+
 # 1 #hidden
- #hidden
+
+#hidden
 text #hidden
- #hidden
+#hidden
 |## 1.1
 
 text
 |
+
 # 2 #hidden
- #hidden
+
+#hidden
 text #hidden
 ```
 
@@ -138,6 +149,8 @@ text #hidden
 
 ```md
 # h1
+
 abc|
+
 # h2 #hidden
 ```

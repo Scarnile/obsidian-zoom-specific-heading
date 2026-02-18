@@ -4,6 +4,7 @@ import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
 import { Feature } from "./Feature";
+import { getHeadingsFromEditor } from "./utils/getHeadings";
 import { isFoldingEnabled } from "./utils/isFoldingEnabled";
 
 import { CalculateRangeForZooming } from "../logic/CalculateRangeForZooming";
@@ -127,6 +128,7 @@ export class ZoomFeature implements Feature {
       icon: "zoom-in",
       editorCallback: (editor) => {
         const view = getEditorViewFromEditor(editor);
+        console.log(view.state.selection.main.head);
         this.zoomIn(view, view.state.selection.main.head);
       },
       hotkeys: [
@@ -148,6 +150,34 @@ export class ZoomFeature implements Feature {
           key: ".",
         },
       ],
+    });
+
+    this.plugin.addCommand({
+      id: "zoom-first-heading",
+      name: "Zoom in the first heading",
+      icon: "zoom-in",
+      editorCallback: (editor) => {
+        const headings = getHeadingsFromEditor(editor);
+        console.log(headings[0].line);
+        const firstHeadingPosition = headings[0].line;
+
+        const view = getEditorViewFromEditor(editor);
+        this.zoomIn(view, firstHeadingPosition);
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "zoom-second-heading",
+      name: "Zoom in the second heading",
+      icon: "zoom-in",
+      editorCallback: (editor) => {
+        const headings = getHeadingsFromEditor(editor);
+        console.log(headings[1].line);
+        // const secondHeadingPosition = headings[1].line;
+
+        const view = getEditorViewFromEditor(editor);
+        this.zoomIn(view, 28);
+      },
     });
   }
 

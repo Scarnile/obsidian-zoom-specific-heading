@@ -23,17 +23,21 @@ text
 
 ```md
 text #hidden
- #hidden
+#hidden
+
 # 1 #hidden
- #hidden
+
+#hidden
 text #hidden
- #hidden
+#hidden
+
 ## 1.1|
 
 text
 
 # 2 #hidden
- #hidden
+
+#hidden
 text #hidden
 ```
 

@@ -4,6 +4,7 @@ import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
 import { Feature } from "./Feature";
+import { findHeadingPosition } from "./utils/findHeadingPosition";
 import { getHeadingsFromEditor } from "./utils/getHeadings";
 import { isFoldingEnabled } from "./utils/isFoldingEnabled";
 
@@ -158,11 +159,11 @@ export class ZoomFeature implements Feature {
       icon: "zoom-in",
       editorCallback: (editor) => {
         const headings = getHeadingsFromEditor(editor);
-        console.log(headings[0].line);
-        const firstHeadingPosition = headings[0].line;
+        const heading = headings[0];
 
+        console.log(heading.offset);
         const view = getEditorViewFromEditor(editor);
-        this.zoomIn(view, firstHeadingPosition);
+        this.zoomIn(view, heading.offset);
       },
     });
 
@@ -172,11 +173,11 @@ export class ZoomFeature implements Feature {
       icon: "zoom-in",
       editorCallback: (editor) => {
         const headings = getHeadingsFromEditor(editor);
-        console.log(headings[1].line);
-        // const secondHeadingPosition = headings[1].line;
+        const heading = headings[1];
 
+        console.log(heading.offset);
         const view = getEditorViewFromEditor(editor);
-        this.zoomIn(view, 28);
+        this.zoomIn(view, heading.offset);
       },
     });
   }

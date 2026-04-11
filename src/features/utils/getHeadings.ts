@@ -11,11 +11,9 @@ export function getHeadingsFromEditor(editor: Editor): Heading[] {
 
     const match = lineText.match(/^(#{1,6})\s+(.*)/);
     if (match) {
-      console.log(editor.posToOffset({ line, ch: 0 }));
       headings.push({
         level: match[1].length,
         text: match[2].trim(),
-        line,
         offset: editor.posToOffset({ line, ch: 0 }),
       });
     }

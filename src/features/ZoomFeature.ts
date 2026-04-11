@@ -152,33 +152,23 @@ export class ZoomFeature implements Feature {
       ],
     });
 
-    this.plugin.addCommand({
-      id: "zoom-first-heading",
-      name: "Zoom in the first heading",
-      icon: "zoom-in",
-      editorCallback: (editor) => {
-        const headings = getHeadingsFromEditor(editor);
-        const heading = headings[0];
+    const maxHeadings = 5;
 
-        console.log(heading.offset);
-        const view = getEditorViewFromEditor(editor);
-        this.zoomIn(view, heading.offset);
-      },
-    });
+    for (let index = 1; index <= maxHeadings; index++) {
+      this.plugin.addCommand({
+        id: `zoom-${index}-heading`,
+        name: `Zoom in heading ${index}`,
+        icon: "zoom-in",
+        editorCallback: (editor) => {
+          const headings = getHeadingsFromEditor(editor);
+          const heading = headings[index--];
 
-    this.plugin.addCommand({
-      id: "zoom-second-heading",
-      name: "Zoom in the second heading",
-      icon: "zoom-in",
-      editorCallback: (editor) => {
-        const headings = getHeadingsFromEditor(editor);
-        const heading = headings[1];
-
-        console.log(heading.offset);
-        const view = getEditorViewFromEditor(editor);
-        this.zoomIn(view, heading.offset);
-      },
-    });
+          console.log(heading.offset);
+          const view = getEditorViewFromEditor(editor);
+          this.zoomIn(view, heading.offset);
+        },
+      });
+    }
   }
 
   async unload() {}

@@ -1,20 +1,25 @@
 import { Platform } from "obsidian";
 
+type ToggleHeadingValues = [first: number, second: number];
+
 export interface ObsidianZoomPluginSettings {
   debug: boolean;
   zoomOnClick: boolean;
+  toggleHeadingValues: ToggleHeadingValues;
 }
 
 interface ObsidianZoomPluginSettingsJson {
   debug: boolean;
   zoomOnClick: boolean;
   zoomOnClickMobile: boolean;
+  toggleHeadingValues: ToggleHeadingValues;
 }
 
 const DEFAULT_SETTINGS: ObsidianZoomPluginSettingsJson = {
   debug: false,
   zoomOnClick: true,
   zoomOnClickMobile: false,
+  toggleHeadingValues: [1, 2],
 };
 
 export interface Storage {
@@ -33,6 +38,7 @@ const zoomOnClickProp = Platform.isDesktop
 const mappingToJson = {
   zoomOnClick: zoomOnClickProp,
   debug: "debug",
+  toggleHeadingValues: "toggleHeadingValues",
 } as {
   [key in keyof ObsidianZoomPluginSettings]: keyof ObsidianZoomPluginSettingsJson;
 };
@@ -52,6 +58,13 @@ export class SettingsService implements ObsidianZoomPluginSettings {
   }
   set debug(value: boolean) {
     this.set("debug", value);
+  }
+
+  get toggleHeadingValues() {
+    return this.values.toggleHeadingValues;
+  }
+  set toggleHeadingValues(value: ToggleHeadingValues) {
+    this.set("toggleHeadingValues", value);
   }
 
   get zoomOnClick() {

@@ -1,4 +1,4 @@
-import { App, Plugin, PluginSettingTab, Setting } from "obsidian";
+import { App, Plugin, PluginSettingTab, Setting, Value } from "obsidian";
 
 import { Feature } from "./Feature";
 
@@ -33,6 +33,14 @@ class ObsidianZoomPluginSettingTab extends PluginSettingTab {
           this.settings.debug = value;
           await this.settings.save();
         });
+      });
+
+    new Setting(containerEl)
+      .setName("Toggle between headings")
+      .setDesc("Add the Heading Numbers to toggle between in the input box")
+      .addText((text) => {
+        text.inputEl.type = "number";
+        text.onChange((value) => {});
       });
   }
 }

@@ -171,8 +171,9 @@ export class ZoomFeature implements Feature {
       id: "zoom-toggle",
       name: "Toggle between two states",
       icon: "zoom-in",
-      editorCallback: () => {
+      editorCallback: (editor) => {
         toggleState = toggleState == 1 ? 2 : 1;
+        zoomInHeading(editor, toggleState - 1);
         console.log(toggleState);
       },
     });

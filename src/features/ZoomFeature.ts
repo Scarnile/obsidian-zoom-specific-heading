@@ -3,6 +3,8 @@ import { Editor, Notice, Plugin } from "obsidian";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
+import { SettingsService } from "src/services/SettingsService";
+
 import { Feature } from "./Feature";
 import { getHeadingsFromEditor } from "./utils/getHeadings";
 import { isFoldingEnabled } from "./utils/isFoldingEnabled";
@@ -25,7 +27,11 @@ export class ZoomFeature implements Feature {
 
   private calculateRangeForZooming = new CalculateRangeForZooming();
 
-  constructor(private plugin: Plugin, private logger: LoggerService) {}
+  constructor(
+    private plugin: Plugin,
+    private logger: LoggerService,
+    private settings: SettingsService
+  ) {}
 
   public calculateVisibleContentRange(state: EditorState) {
     return this.keepOnlyZoomedContentVisible.calculateVisibleContentRange(
@@ -165,6 +171,7 @@ export class ZoomFeature implements Feature {
       });
     }
 
+    // let toggleState = this.plugin.settin;
     let toggleState: 1 | 2 = 1;
 
     this.plugin.addCommand({
@@ -172,6 +179,7 @@ export class ZoomFeature implements Feature {
       name: "Toggle between two states",
       icon: "zoom-in",
       editorCallback: (editor) => {
+        const toggleValues = this.settings.toggleHeadingValues;
         toggleState = toggleState == 1 ? 2 : 1;
         zoomInHeading(editor, toggleState - 1);
         console.log(toggleState);

@@ -1,6 +1,6 @@
 import { Platform } from "obsidian";
 
-type ToggleHeadingValues = [first: number, second: number];
+export type ToggleHeadingValues = [first: number, second: number];
 
 export interface ObsidianZoomPluginSettings {
   debug: boolean;

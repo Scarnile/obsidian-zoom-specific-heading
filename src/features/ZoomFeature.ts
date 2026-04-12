@@ -1,4 +1,4 @@
-import { Notice, Plugin } from "obsidian";
+import { Editor, Notice, Plugin } from "obsidian";
 
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
@@ -160,27 +160,31 @@ export class ZoomFeature implements Feature {
         name: `Zoom in heading ${index}`,
         icon: "zoom-in",
         editorCallback: (editor) => {
-          const headings = getHeadingsFromEditor(editor);
-          const heading = headings[index--];
-
-          console.log(heading.offset);
-          const view = getEditorViewFromEditor(editor);
-          this.zoomIn(view, heading.offset);
+          zoomInHeading(editor, index - 1);
         },
       });
     }
 
-    let toggleState: "one" | "two" = "one";
+    let toggleState: 1 | 2 = 1;
 
     this.plugin.addCommand({
       id: "zoom-toggle",
       name: "Toggle between two states",
       icon: "zoom-in",
       editorCallback: () => {
-        toggleState = toggleState == "one" ? "two" : "one";
+        toggleState = toggleState == 1 ? 2 : 1;
         console.log(toggleState);
       },
     });
+
+    const zoomInHeading = (editor: Editor, headingNumber: number) => {
+      const headings = getHeadingsFromEditor(editor);
+      const heading = headings[headingNumber];
+
+      console.log(heading.offset);
+      const view = getEditorViewFromEditor(editor);
+      this.zoomIn(view, heading.offset);
+    };
   }
 
   async unload() {}

@@ -172,15 +172,21 @@ export class ZoomFeature implements Feature {
     }
 
     // let toggleState = this.plugin.settin;
-    let toggleState: 1 | 2 = 1;
+    const toggleValues = this.settings.toggleHeadingValues;
+    const first = toggleValues[0];
+    const second = toggleValues[1];
 
+    let toggleState = first;
     this.plugin.addCommand({
       id: "zoom-toggle",
       name: "Toggle between two states",
       icon: "zoom-in",
       editorCallback: (editor) => {
-        const toggleValues = this.settings.toggleHeadingValues;
-        toggleState = toggleState == 1 ? 2 : 1;
+        if (toggleState == first) {
+          toggleState = second;
+        } else if (toggleState == second) {
+          toggleState = first;
+        }
         zoomInHeading(editor, toggleState - 1);
         console.log(toggleState);
       },
@@ -190,7 +196,6 @@ export class ZoomFeature implements Feature {
       const headings = getHeadingsFromEditor(editor);
       const heading = headings[headingNumber];
 
-      console.log(heading.offset);
       const view = getEditorViewFromEditor(editor);
       this.zoomIn(view, heading.offset);
     };

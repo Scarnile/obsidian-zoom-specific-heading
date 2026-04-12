@@ -169,6 +169,18 @@ export class ZoomFeature implements Feature {
         },
       });
     }
+
+    let toggleState: "one" | "two" = "one";
+
+    this.plugin.addCommand({
+      id: "zoom-toggle",
+      name: "Toggle between two states",
+      icon: "zoom-in",
+      editorCallback: () => {
+        toggleState = toggleState == "one" ? "two" : "one";
+        console.log(toggleState);
+      },
+    });
   }
 
   async unload() {}

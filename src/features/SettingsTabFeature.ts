@@ -40,7 +40,17 @@ class ObsidianZoomPluginSettingTab extends PluginSettingTab {
       .setDesc("Add the Heading Numbers to toggle between in the input box")
       .addText((text) => {
         text.inputEl.type = "number";
-        text.onChange((value) => {});
+        text.onChange((value) => {
+          const num = Number(value);
+          this.settings.toggleHeadingValues[0] = num;
+        });
+      })
+      .addText((text) => {
+        text.inputEl.type = "number";
+        text.onChange((value) => {
+          const num = Number(value);
+          this.settings.toggleHeadingValues[1] = num;
+        });
       });
   }
 }

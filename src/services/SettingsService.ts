@@ -1,5 +1,7 @@
 import { Platform } from "obsidian";
 
+import ObsidianZoomPlugin from "src/ObsidianZoomPlugin";
+
 export type ToggleHeadingValues = [first: number, second: number];
 
 export interface ObsidianZoomPluginSettings {
@@ -39,9 +41,7 @@ const mappingToJson = {
   zoomOnClick: zoomOnClickProp,
   debug: "debug",
   toggleHeadingValues: "toggleHeadingValues",
-} as {
-  [key in keyof ObsidianZoomPluginSettings]: keyof ObsidianZoomPluginSettingsJson;
-};
+} as const;
 
 export class SettingsService implements ObsidianZoomPluginSettings {
   private storage: Storage;
@@ -102,8 +102,8 @@ export class SettingsService implements ObsidianZoomPluginSettings {
     await this.storage.saveData(this.values);
   }
 
-  private set<T extends K>(key: T, value: V<K>): void {
-    this.values[mappingToJson[key]] = value;
+  private set<T extends K>(key: T, value: V<T>): void {
+    (this.values[mappingToJson[key]] as V<T>) = value;
     const callbacks = this.handlers.get(key);
 
     if (!callbacks) {

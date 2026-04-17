@@ -1,4 +1,4 @@
-import { App, Plugin, PluginSettingTab, Setting, Value } from "obsidian";
+import { App, Plugin, PluginSettingTab, Setting } from "obsidian";
 
 import { Feature } from "./Feature";
 
